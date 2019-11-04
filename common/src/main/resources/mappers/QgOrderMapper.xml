@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="zz.test.orders.common.dao.QgOrderMapper">
+    <select id="getQgOrderById" resultType="zz.test.orders.common.bean.QgOrder">
+        select
+                id as id,
+                userId as userId,
+                orderNo as orderNo,
+                goodsId as goodsId,
+                stockId as stockId,
+                num as num,
+                amount as amount,
+                status as status,
+                aliTradeNo as aliTradeNo,
+                createdTime as createdTime,
+                updatedTime as updatedTime
+        from qg_order
+        <trim prefix="where" prefixOverrides="and | or">
+            <if test="id != null">
+                and id=#{id}
+            </if>
+        </trim>
+    </select>
+    <select id="getQgOrderListByMap" resultType="zz.test.orders.common.bean.QgOrder" parameterType="java.util.Map">
+        select
+                id as id,
+                userId as userId,
+                orderNo as orderNo,
+                goodsId as goodsId,
+                stockId as stockId,
+                num as num,
+                amount as amount,
+                status as status,
+                aliTradeNo as aliTradeNo,
+                createdTime as createdTime,
+                updatedTime as updatedTime
+        from qg_order
+        <trim prefix="where" prefixOverrides="and | or">
+                <if test="id != null and id!=-1">
+                    and id=#{id}
+                </if>
+                <if test="userId != null and userId!=-1">
+                    and userId=#{userId}
+                </if>
+                <if test="orderNo != null and orderNo!='-1'">
+                    and orderNo=#{orderNo}
+                </if>
+                <if test="goodsId != null and goodsId!=-1">
+                    and goodsId=#{goodsId}
+                </if>
+                <if test="num != null and num!=-1">
+                    and num=#{num}
+                </if>
+                <if test="amount != null and amount!=-1">
+                    and amount=#{amount}
+                </if>
+                <if test="status != null and status!=-1">
+                    and status=#{status}
+                </if>
+                <if test="aliTradeNo != null and aliTradeNo!=-1">
+                    and aliTradeNo=#{aliTradeNo}
+                </if>
+                <if test="stockId != null and stockId!=-1">
+                    and stockId=#{stockId}
+                </if>
+                <if test="createdTime != null and createdTime!=-1">
+                    and createdTime=#{createdTime}
+                </if>
+                <if test="updatedTime != null and updatedTime!=-1">
+                    and updatedTime=#{updatedTime}
+                </if>
+        </trim>
+        <if test="beginPos != null and pageSize != null ">
+            limit #{beginPos},#{pageSize}
+        </if>
+    </select>
+    <select id="getQgOrderCountByMap" resultType="Integer"  parameterType="java.util.Map">
+        select count(*) from qg_order
+        <trim prefix="where" prefixOverrides="and | or">
+                <if test="id != null and id!='-1'">
+                    and id=#{id}
+                </if>
+                <if test="userId != null and userId!='-1'">
+                    and userId=#{userId}
+                </if>
+                <if test="orderNo != null and orderNo!='-1'">
+                    and orderNo=#{orderNo}
+                </if>
+                <if test="goodsId != null and goodsId!='-1'">
+                    and goodsId=#{goodsId}
+                </if>
+                <if test="num != null and num!=-1">
+                    and num=#{num}
+                </if>
+                <if test="amount != null and amount!=-1">
+                    and amount=#{amount}
+                </if>
+                <if test="status != null and status!='-1'">
+                    and status=#{status}
+                </if>
+                <if test="aliTradeNo != null and aliTradeNo!='-1'">
+                    and aliTradeNo=#{aliTradeNo}
+                </if>
+                <if test="createdTime != null and createdTime!=-1">
+                    and createdTime=#{createdTime}
+                </if>
+                <if test="updatedTime != null and updatedTime!=-1">
+                    and updatedTime=#{updatedTime}
+                </if>
+                <if test="stockId != null and stockId!=-1">
+                    and stockId=#{stockId}
+                </if>
+        </trim>
+    </select>
+    <insert id="insertQgOrder" parameterType="zz.test.orders.common.bean.QgOrder">
+        insert into qg_order(
+                        id,
+                        userId,
+                        orderNo,
+                        goodsId,
+                        stockId,
+                        num,
+                        amount,
+                        status,
+                        aliTradeNo,
+                        createdTime,
+                        updatedTime)
+        values(
+                     #{id},
+                     #{userId},
+                     #{orderNo},
+                     #{goodsId},
+                     #{stockId},
+                     #{num},
+                     #{amount},
+                     #{status},
+                     #{aliTradeNo},
+                     #{createdTime},
+                    #{updatedTime})
+    </insert>
+    <update id="updateQgOrder" parameterType="zz.test.orders.common.bean.QgOrder">
+        update qg_order
+        <trim prefix="set" suffixOverrides="," suffix="where id=#{id}">
+                        <if test="userId != null">
+                            userId=#{userId},
+                        </if>
+                        <if test="orderNo != null">
+                            orderNo=#{orderNo},
+                        </if>
+                        <if test="goodsId != null">
+                            goodsId=#{goodsId},
+                        </if>
+                        <if test="num != null">
+                            num=#{num},
+                        </if>
+                        <if test="amount != null">
+                            amount=#{amount},
+                        </if>
+                        <if test="status != null">
+                            status=#{status},
+                        </if>
+                        <if test="aliTradeNo != null">
+                            aliTradeNo=#{aliTradeNo},
+                        </if>
+                        <if test="createdTime != null">
+                            createdTime=#{createdTime},
+                        </if>
+                        <if test="updatedTime != null">
+                            updatedTime=#{updatedTime}
+                        </if>
+        </trim>
+    </update>
+    <delete id="deleteQgOrderById" parameterType="String">
+        delete from qg_order where id = #{id}
+    </delete>
+    <delete id="batchDeleteQgOrder" parameterType="java.util.Map">
+        delete from qg_order where id in (
+            <foreach collection="ids" item="id" separator=",">
+                    #{id}
+            </foreach>
+        )
+    </delete>
+    <update id="flushCancelOrderStatus">
+        update qg_order set status=2 where status=0 and timestampdiff(SECOND, createdTime, NOW()) >= 1800
+    </update>
+    <select id="getFlushCancelOrderList" resultType="zz.test.orders.common.bean.QgOrder">
+        select * from qg_order where status=0 and timestampdiff(SECOND, createdTime, NOW()) >= 1800
+    </select>
+</mapper>

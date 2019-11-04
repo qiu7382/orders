@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="zz.test.orders.common.dao.QgTradeMapper">
+
+    <select id="getQgTradeById" resultType="zz.test.orders.common.bean.QgTrade">
+        select
+                id as id,
+                orderNo as orderNo,
+                tradeNo as tradeNo,
+                payMethod as payMethod,
+                amount as amount,
+                createdTime as createdTime,
+                updatedTime as updatedTime
+        from qg_trade
+        <trim prefix="where" prefixOverrides="and | or">
+            <if test="id != null">
+                and id=#{id}
+            </if>
+        </trim>
+    </select>
+
+    <select id="getQgTradeListByMap" resultType="zz.test.orders.common.bean.QgTrade" parameterType="java.util.Map">
+        select
+                id as id,
+                orderNo as orderNo,
+                tradeNo as tradeNo,
+                payMethod as payMethod,
+                amount as amount,
+                createdTime as createdTime,
+                updatedTime as updatedTime
+        from qg_trade
+        <trim prefix="where" prefixOverrides="and | or">
+                <if test="id != null and id!=-1">
+                    and id=#{id}
+                </if>
+                <if test="orderNo != null and orderNo!=-1">
+                    and orderNo=#{orderNo}
+                </if>
+                <if test="tradeNo != null and tradeNo!=-1">
+                    and tradeNo=#{tradeNo}
+                </if>
+                <if test="payMethod != null and payMethod!=-1">
+                    and payMethod=#{payMethod}
+                </if>
+                <if test="amount != null and amount!=-1">
+                    and amount=#{amount}
+                </if>
+                <if test="createdTime != null and createdTime!=-1">
+                    and createdTime=#{createdTime}
+                </if>
+                <if test="updatedTime != null and updatedTime!=-1">
+                    and updatedTime=#{updatedTime}
+                </if>
+        </trim>
+        <if test="beginPos != null and pageSize != null ">
+            limit #{beginPos},#{pageSize}
+        </if>
+    </select>
+
+    <select id="getQgTradeCountByMap" resultType="Integer"  parameterType="java.util.Map">
+        select count(*) from qg_trade
+        <trim prefix="where" prefixOverrides="and | or">
+                <if test="id != null and id!='-1'">
+                    and id=#{id}
+                </if>
+                <if test="orderNo != null and orderNo!='-1'">
+                    and orderNo=#{orderNo}
+                </if>
+                <if test="tradeNo != null and tradeNo!='-1'">
+                    and tradeNo=#{tradeNo}
+                </if>
+                <if test="payMethod != null and payMethod!=-1">
+                    and payMethod=#{payMethod}
+                </if>
+                <if test="amount != null and amount!=-1">
+                    and amount=#{amount}
+                </if>
+                <if test="createdTime != null and createdTime!=-1">
+                    and createdTime=#{createdTime}
+                </if>
+                <if test="updatedTime != null and updatedTime!=-1">
+                    and updatedTime=#{updatedTime}
+                </if>
+        </trim>
+    </select>
+
+    <insert id="insertQgTrade" parameterType="zz.test.orders.common.bean.QgTrade">
+        insert into qg_trade(
+                        id,
+                        orderNo,
+                        tradeNo,
+                        payMethod,
+                        amount,
+                        createdTime,
+                        updatedTime)
+        values(
+                     #{id},
+                     #{orderNo},
+                     #{tradeNo},
+                     #{payMethod},
+                     #{amount},
+                     #{createdTime},
+                    #{updatedTime})
+    </insert>
+
+    <update id="updateQgTrade" parameterType="zz.test.orders.common.bean.QgTrade">
+        update qg_trade
+        <trim prefix="set" suffixOverrides="," suffix="where id=#{id}">
+                        <if test="orderNo != null and orderNo!='-1'">
+                            orderNo=#{orderNo},
+                        </if>
+                        <if test="tradeNo != null and tradeNo!='-1'">
+                            tradeNo=#{tradeNo},
+                        </if>
+                        <if test="payMethod != null and payMethod!='-1'">
+                            payMethod=#{payMethod},
+                        </if>
+                        <if test="amount != null and amount!='-1'">
+                            amount=#{amount},
+                        </if>
+                        <if test="createdTime != null and createdTime!='-1'">
+                            createdTime=#{createdTime},
+                        </if>
+                        <if test="updatedTime != null and updatedTime!='-1'">
+                            updatedTime=#{updatedTime}
+                        </if>
+        </trim>
+    </update>
+
+    <delete id="deleteQgTradeById" parameterType="String">
+        delete from qg_trade where id = #{id}
+    </delete>
+
+    <delete id="batchDeleteQgTrade" parameterType="java.util.Map">
+        delete from qg_trade where id in (
+            <foreach collection="ids" item="id" separator=",">
+                    #{id}
+            </foreach>
+        )
+    </delete>
+</mapper>

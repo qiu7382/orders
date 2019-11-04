@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1,user-scalable=no">
+    <link rel="stylesheet" href="./css/base.css"/>
+    <link rel="stylesheet" href="./css/page_sy.css"/>
+    <script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>
+    <script type="text/javascript" src="js/common.js"></script>
+    <script type="text/javascript" src="layer/layer.js"></script>
+    <script type="text/javascript" src="js/shade.js"></script>
+    <script type="text/javascript" src="js/choosePay.js"></script>
+    <script type="text/javascript" src="js/qrcode.min.js"></script>
+</head>
+<body>
+<div class="main">
+    <div class="rightTitle">
+        <h2>抢购网-支付中心</h2>
+    </div>
+
+    <div class="rightList">
+        <div class="listTitle">
+            <div class="titleMin">
+                <div class="topinfo">
+                    <div class="inner">
+                        <p class="noteMessage"> 请在<span>30分钟内</span>完成支付</p>
+                        <div class="wrap">
+                            <!--<form id="body" style="width: 100%;margin-top: 10px" method="post" action="http://aliPay.local.com/api/pay">-->
+                            <form id="body" style="width: 100%;margin-top: 10px" method="post"
+                                  action="http://aliPay.local.com/api/pay">
+                            </form>
+                            <div id="zflag" style="display: none">0</div>
+                            <div id="orderNoDiv" style="display: none"></div>
+                            <div id="bgdiv" class="black_overlay"></div>
+                            <div id="showdiv" class="white_content">
+                                <div class="white_d" align="center">
+                                    <div class="ui-dlg-header">
+                                        <h1>温馨提示</h1>
+                                        <a href="javascript:void(0)" onclick="closeWindow()" class="ui-action ui-dlg-close" data-action="dialog-close"></a>
+                                    </div>
+                                    <div class="notice_t">
+                                        <p>打开微信客户端扫一扫继续支付</p>
+                                        </br>
+                                        </br>
+                                    </div>
+                                    <div class="notice_c">
+                                        <table border="0" cellspacing="0"
+                                               cellpadding="0">
+                                            <tr valign="top">
+                                                <div id="qrcode"></div>
+                                            </tr>
+                                            <tr height="50" valign="bottom">
+                                                <td>&nbsp;</td>
+                                                </br>
+                                                </br>
+                                                <td><a href="#" class="b_sure" onclick="paySuccess()">支付成功</a><a
+                                                        href="#" class="b_buy"
+                                                        onclick="CloseDiv('showdiv','bgdiv')">取消</a></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--  <div class="order_count">订单金额： <span>10.00</span> 元</div>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="listMin1">
+            <div class="mod_form sy_cont">
+                <div class="inner pay_type form">
+                    <div class="tab">
+                        <label class="form-label">支付方式：</label>
+                        <ul id="paytab">
+                            <li class="tab_item" id="wxzf">微信支付</li>
+                            <li class="tab_item" id="zfbzf">支付宝</li>
+                        </ul>
+                    </div>
+                    <ul class="tab_cont">
+                        <div style="" class="form-field payamount">
+                            <label class="form-label">应付金额：</label>
+                            <div class="cell_radio">
+                                <span class="form-amount bank-amount" id="bankvalue"></span>元
+                            </div>
+                        </div>
+                        <div class="form-field form-btns">
+                            <input type="button" class="btn btn1 sub" value="立即支付" id="submitBtnBank">
+                        </div>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
